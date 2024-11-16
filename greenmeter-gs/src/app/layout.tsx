@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Hero from "@/components/Hero/Hero";
+import Rodape from "@/components/Rodape/Rodape";
 
 
 
@@ -16,7 +18,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body>
+        <Hero/>
         {children}
+        <Rodape/>
       </body>
     </html>
   );
