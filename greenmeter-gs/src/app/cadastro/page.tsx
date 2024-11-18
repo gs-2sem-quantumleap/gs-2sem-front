@@ -1,10 +1,23 @@
+import { TipoMorador } from "@/types/types";
+
 export default function FormCadastro() {
+    const morador: TipoMorador = {
+        nome: "",
+        cpf: "",
+        email: "",
+        telefone: ""
+    }
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+    }
+
   return (
     <main className="md:container mx-auto px-[5%] py-[3vh]  gap-5 text-xs sm:text-sm md:text-base h-[70vh]">
       <h1 className="font-bold mb-2">
         <span className="text-musgo">Formulário</span> de Cadastro de Morador
       </h1>
-      <form action="" className="w-full bg-slate-200 rounded py-4 px-4">
+      <form onSubmit={handleSubmit} className="w-full bg-slate-200 rounded py-4 px-4">
         <fieldset className="w-full grid grid-cols-2 grid-rows-2 gap-x-5 gap-y-3 mb-3">
           <div className="flex flex-col justify-between">
             <label className="font-medium" htmlFor="numero-apartamento">

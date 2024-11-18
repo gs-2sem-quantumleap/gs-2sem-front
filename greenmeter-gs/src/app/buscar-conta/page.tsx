@@ -1,12 +1,12 @@
 "use client";
-import { useState } from "react";
+import { FormEventHandler, useState } from "react";
 
 export default function BuscarConta() {
   const [mostrarTabela, setMostrarTabela] = useState<boolean>(true);
   const [cpf, setCpf] = useState<string>("");
 
-  const handleChange = (e) => {
-    let value = e.target.value;
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
+    let value = event.target.value;
     value = value.replace(/\D/g, "");
     value = value.replace(/(\d{3})(\d)/, "$1.$2");
     value = value.replace(/(\d{3})(\d)/, "$1.$2");
@@ -14,11 +14,12 @@ export default function BuscarConta() {
     setCpf(value);
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+    event.preventDefault();
     const cpfParaBusca = cpf.replaceAll(".", "").replace("-", "");
     // Atributo pronto para buscar o CPF
     console.log(cpfParaBusca);
+    setMostrarTabela(true);
   }
 
   return (
@@ -36,8 +37,8 @@ export default function BuscarConta() {
               type="text"
               className="rounded py-1 px-3"
               placeholder="123.456.789.10"
-              value={cpf}
               id="cpf"
+              value={cpf}
               name="cpf"
               onChange={handleChange}
             />
