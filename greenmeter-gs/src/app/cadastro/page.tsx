@@ -1,16 +1,21 @@
+"use client"
+
 import { TipoMorador } from "@/types/types";
+import { FormEventHandler, useState } from "react";
 
 export default function FormCadastro() {
-    const morador: TipoMorador = {
+    const [morador, setMorador] = useState<TipoMorador>({
         nome: "",
         cpf: "",
         email: "",
         telefone: ""
+    })
+
+    const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
+        event.preventDefault();
+        console.log(morador);
     }
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-    }
 
   return (
     <main className="md:container mx-auto px-[5%] py-[3vh]  gap-5 text-xs sm:text-sm md:text-base h-[70vh]">
@@ -20,25 +25,33 @@ export default function FormCadastro() {
       <form onSubmit={handleSubmit} className="w-full bg-slate-200 rounded py-4 px-4">
         <fieldset className="w-full grid grid-cols-2 grid-rows-2 gap-x-5 gap-y-3 mb-3">
           <div className="flex flex-col justify-between">
-            <label className="font-medium" htmlFor="numero-apartamento">
+            <label className="font-medium" htmlFor="nome">
               Nome:
             </label>
             <input
               type="text"
-              id="numero-apartamento"
-              name="numero-apartamento"
+              id="nome"
+              name="nome"
+              value={morador.nome}
+              onChange={e => {
+                setMorador({ ...morador, nome: e.target.value})
+              }}
               className="w-full p-1 px-2 rounded"
               placeholder="Insira seu nome"
             />
           </div>
           <div className="flex flex-col justify-between">
-            <label className="font-medium" htmlFor="numero-apartamento">
+            <label className="font-medium" htmlFor="cpf">
               CPF
             </label>
             <input
               type="text"
-              id="data-conta"
-              name="data-conta"
+              id="cpf"
+              name="cpf"
+              value={morador.cpf}
+              onChange={e => {
+                setMorador({ ...morador, cpf: e.target.value})
+              }}
               className="w-full p-1 px-2 rounded"
               placeholder="123.456.789-10"
             />
@@ -50,6 +63,10 @@ export default function FormCadastro() {
             <input
               type="text"
               id="numero-apartamento"
+              value={morador.email}
+              onChange={e => {
+                setMorador({ ...morador, email: e.target.value})
+              }}
               className="w-full p-1 px-2 rounded"
               placeholder="email@dominio.com"
             />
@@ -61,6 +78,10 @@ export default function FormCadastro() {
             <input
               type="text"
               id="numero-apartamento"
+              value={morador.telefone}
+              onChange={e => {
+                setMorador({ ...morador, telefone: e.target.value})
+              }}
               className="w-full p-1 px-2 rounded"
               placeholder="(00) 12345-7689"
             />
