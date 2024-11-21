@@ -1,12 +1,11 @@
 "use client";
 import Link from "next/link";
 import { useState, useEffect } from "react";
-import { TipoConsumoMorador, TipoConta } from "@/types/types";
+import { TipoConsumoMorador, TipoContaInput } from "@/types/types";
 
 export default function Home() {
-
   const [moradores, setMoradores] = useState<TipoConsumoMorador[]>([]);
-  const [conta, setConta] = useState<TipoConta>({
+  const [conta, setConta] = useState<TipoContaInput>({
     valorConta: 0,
     dataConta: new Date(),
     consumoKwh: 0,
@@ -36,7 +35,6 @@ export default function Home() {
       console.error(error);
     }
   };
-
 
   useEffect(() => {
     chamadaApi();
@@ -76,7 +74,6 @@ export default function Home() {
       console.error("Erro ao cadastrar conta:", error);
     }
   };
-  
 
   return (
     <main className="">
@@ -205,25 +202,49 @@ export default function Home() {
           </form>
         </div>
       </div>
-      <div className="bg-musgo/30 w-full px-[5%] py-[3vh] text-sm">
+      <div className="bg-musgo/30 w-full px-[5%] py-[3vh] text-sm flex items-center justify-center">
         <div className="md:container">
           <h1 className="font-bold block mb-1 sm:text-base md:text-lg">
             Sobre a nossa Solução
           </h1>
           <p className="text-xs sm:text-sm md:text-base">
-            Contrary to popular belief, Lorem Ipsum is not simply random text.
-            It has roots in a piece of classical Latin literature from 45 BC,
-            making it over 2000 years old. Richard McClintock, a Latin professor
-            at Hampden-Sydney College in Virginia, looked up one of the more
-            obscure Latin words, consectetur, from a Lorem Ipsum passage, and
-            going through the cites of the word in classical literature,
-            discovered the undoubtable source. Lorem Ipsum comes from sections
-            1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes
-            of Good and Evil) by Cicero, written in 45 BC. This book is a
-            treatise on the theory of ethics, very popular during the
-            Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit
-            amet..", comes from a line in section 1.10.32.
+            O GreenMeter é uma plataforma patenteada e desenvolvida pela
+            QuantumLeap para o Condomínio Nascer do Sol para que os moradores
+            possam cadastrar seus dados no sistema para que então possam
+            registrar suas contas de energia mês a mês de modo que o consumo de
+            energia seja utilizado como métrica para gerar um ranking de
+            moradores ordenado pelo menor consumo e, ao final de cada mês, os
+            melhores colocados no ranking ganham premiações no condomínio, como
+            descontos, bônus etc. A principal vantagem da solução é instigar a
+            economia de energia pelos moradores de forma lúdica.
           </p>
+        </div>
+      </div>
+      <div className="w-full py-[3vh] text-sm px-[5%] flex items-center justify-center">
+        <div className="md:container flex flex-col gap-5">
+          <h1 className="font-bold block mb-1 sm:text-base md:text-lg w-full">
+            Dúvidas Frequentes
+          </h1>
+          <div className="w-full rounded bg-slate-200 py-2 px-4 ">
+            <h1 className="font-bold block mb-1 sm:text-base md:text-lg">
+              Como posso cadastrar uma conta de energia?
+            </h1>
+            <p>
+              Simples! Basta inserir os dados referentes à sua conta no
+              formulário logo abaixo do ranking e pronto, sua conta estará
+              cadastrada
+            </p>
+          </div>
+          <div className="w-full rounded bg-slate-200 py-2 px-4 ">
+            <h1 className="font-bold block mb-1 sm:text-base md:text-lg">
+              Como posso editar uma conta de energia?
+            </h1>
+            <p>
+              Para isso você pode inserir o seu CPF no formulário de consulta de
+              conta de energia e então você receberá um relatório de todas as
+              contas de energia associada a todos seus apartamentos.
+            </p>
+          </div>
         </div>
       </div>
     </main>
