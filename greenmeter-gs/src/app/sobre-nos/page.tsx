@@ -4,6 +4,11 @@ import Link from "next/link";
 export default function SobreNos() {
   return (
     <main className="md:container h-full mx-auto px-[5%] py-[3vh] flex flex-col items-center gap-5 text-xs sm:text-sm md:text-base">
+      <div className="text-start w-full">
+        <p>
+          <Link href="/"><span className="text-musgo">Home</span></Link> &gt; Sobre nós
+        </p>
+      </div>
       <h1 className="font-bold text-sm sm:text-base w-full md:text-lg">Integrantes do Grupo</h1>
       {/* Card do Integrante */}
       <div className="bg-musgo w-[75%] lg:w-[60%] xl-w[50%] rounded p-5 font-bold flex flex-col sm:text-base md:text-lg items-center gap-3 hover:shadow-2xl shadow-black">
