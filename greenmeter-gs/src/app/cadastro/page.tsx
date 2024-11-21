@@ -1,6 +1,7 @@
 "use client";
 
 import { TipoMorador } from "@/types/types";
+import Link from "next/link";
 import { FormEventHandler, useState } from "react";
 
 export default function FormCadastro() {
@@ -10,6 +11,9 @@ export default function FormCadastro() {
     email: "",
     telefone: "",
   });
+
+  const [mostrarMensagemErro, setMostrarMensagemErro] =
+    useState<boolean>(false);
 
   const handleChangeCpf: React.ChangeEventHandler<HTMLInputElement> = (
     event
@@ -41,21 +45,38 @@ export default function FormCadastro() {
 
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
-    const moradorSemMascara: TipoMorador = {
-      ...morador,
-      cpf: morador.cpf.replaceAll(".", "").replace("-", ""),
-      telefone: morador.telefone
-        .replace("(", "")
-        .replace(")", "")
-        .replace("-", "")
-        .replace(" ", "")
-    };
+    if (
+      morador.telefone.length < 14 ||
+      morador.cpf.length < 14 ||
+      morador.email.length < 11 ||
+      !morador.email.includes("@")
+    ) {
+      setMostrarMensagemErro(true);
 
-    console.log(moradorSemMascara);
+      const moradorSemMascara: TipoMorador = {
+        ...morador,
+        cpf: morador.cpf.replaceAll(".", "").replace("-", ""),
+        telefone: morador.telefone
+          .replace("(", "")
+          .replace(")", "")
+          .replace("-", "")
+          .replace(" ", ""),
+      };
+
+      console.log(moradorSemMascara);
+    }
   };
 
   return (
     <main className="md:container mx-auto px-[5%] py-[3vh]  gap-5 text-xs sm:text-sm md:text-base h-[70vh]">
+      <div className="text-start w-full mb-2">
+        <p>
+          <Link href="/">
+            <span className="text-musgo">Home</span>
+          </Link>{" "}
+          &gt; Cadastro de Morador
+        </p>
+      </div>
       <h1 className="font-bold mb-2">
         <span className="text-musgo">Formulário</span> de Cadastro de Morador
       </h1>
@@ -78,6 +99,8 @@ export default function FormCadastro() {
               }}
               className="w-full p-1 px-2 rounded"
               placeholder="Insira seu nome"
+              required
+              minLength={3}
             />
           </div>
           <div className="flex flex-col justify-between">
@@ -93,6 +116,8 @@ export default function FormCadastro() {
               className="w-full p-1 px-2 rounded"
               placeholder="123.456.789-10"
               maxLength={14}
+              minLength={14}
+              required
             />
           </div>
           <div className="flex flex-col justify-between">
@@ -108,6 +133,8 @@ export default function FormCadastro() {
               }}
               className="w-full p-1 px-2 rounded"
               placeholder="email@dominio.com"
+              minLength={11}
+              required
             />
           </div>
           <div className="flex flex-col justify-between">
@@ -122,6 +149,8 @@ export default function FormCadastro() {
               className="w-full p-1 px-2 rounded"
               placeholder="(00) 12345-7689"
               maxLength={15}
+              minLength={14}
+              required
             />
           </div>
         </fieldset>
@@ -129,6 +158,13 @@ export default function FormCadastro() {
           Enviar
         </button>
       </form>
+
+      {mostrarMensagemErro ? (
+        <p className="font-semibold text-red-600 block w-full text-center mt-3">
+          Erro no envio do formulário. Verifique os valores inseridos e tente
+          novamente.
+        </p>
+      ) : null}
     </main>
   );
 }
