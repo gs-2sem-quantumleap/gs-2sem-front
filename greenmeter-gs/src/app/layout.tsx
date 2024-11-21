@@ -26,7 +26,7 @@ export default function RootLayout({
       <body>
         <Hero/>
         {children}
-        {/* <Rodape/> */}
+        <Rodape/>
       </body>
     </html>
   );
