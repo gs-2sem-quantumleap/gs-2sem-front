@@ -9,7 +9,7 @@ export default function Cabecalho() {
           <span className="text-limao">Green</span>Meter
         </Link>
       </h1>
-      <Link href="" className="h-[50%] w-auto">
+      <Link href="/menu" className="h-[50%] w-auto">
         <Image
           src="/img/icone-menu.png"
           alt="ícone de menu"
@@ -19,10 +19,15 @@ export default function Cabecalho() {
         />
       </Link>
       <div className="hidden md:flex gap-3">
-        <Link href="/sobre-nos" className="font-semibold">Sobre nós</Link>
-        <Link href="/cadastro" className="font-semibold">Cadastrar-se</Link>
-        <Link href="/buscar-conta" className="font-semibold">Visualizar Dados</Link>
-
+        <Link href="/sobre-nos" className="font-semibold">
+          Sobre nós
+        </Link>
+        <Link href="/buscar-conta" className="font-semibold">
+          Visualizar Dados
+        </Link>
+        <Link href="/descontos" className="font-semibold">
+          Históricos de Descontos
+        </Link>
       </div>
     </header>
   );

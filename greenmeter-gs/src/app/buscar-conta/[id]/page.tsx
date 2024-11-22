@@ -18,39 +18,7 @@ export default function EditarConta() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const dataConta = new Date(conta.dataConta);
-    const dadosEnvio: TipoContaInput = {
-        ...conta,
-        dataConta: dataConta,
-    }
 
-    console.log(dadosEnvio);
-    // try {
-    //   const response = await fetch("http://localhost:8080/contas/", {
-    //     method: "POST",
-    //     credentials: "include",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({
-    //       ...conta,
-    //       dataConta: dataConta.toISOString(),
-    //     }),
-    //   });
-
-    //   if (response.ok) {
-    //     alert("Conta cadastrada com sucesso!");
-
-    //     setConta({
-    //       valorConta: 0,
-    //       dataConta: new Date(),
-    //       consumoKwh: 0,
-    //       idApartamento: 0,
-    //     });
-    //   }
-    // } catch (error) {
-    //   console.error("Erro ao cadastrar conta:", error);
-    // }
   };
 
   const params = useParams<{ id: string }>();
@@ -59,9 +27,11 @@ export default function EditarConta() {
     console.log(params);
     const fetchConta = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/contas/${params.id}`);
+        const response = await fetch(`http://localhost:8080/moradores/buscarPorCpf/${params.id}`);
         const data = await response.json();
-        setConta(data);
+        // setConta(data);
+        // console.log(conta);
+        console.log(data);
       } catch (error) {
         console.error("Erro ao buscar conta:", error);
       }

@@ -1,5 +1,5 @@
 "use client";
-import { TipoConta, TipoContaResponse } from "@/types/types";
+import { TipoConta, TipoContaResponse, TipoMorador } from "@/types/types";
 import Link from "next/link";
 import { FormEventHandler, useState } from "react";
 
@@ -9,6 +9,13 @@ export default function BuscarConta() {
   const [listaDeContas, setListaDeContas] = useState<TipoConta[]>([]);
   const [mostrarMensagemErro, setMostrarMensagemErro] =
     useState<boolean>(false);
+
+  const [morador, setMorador] = useState<TipoMorador>({
+    nomeMorador: "",
+    cpf: "",
+    telefone: "",
+    email: "",
+  });
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     let value = event.target.value;
@@ -22,16 +29,18 @@ export default function BuscarConta() {
   const handleSubmit: FormEventHandler<HTMLFormElement> = (event) => {
     event.preventDefault();
     const cpfParaBusca = cpf.replaceAll(".", "").replace("-", "");
-    // Atributo pronto para buscar o CPF
     buscaContas(cpfParaBusca);
   };
 
   const buscaContas = async (cpf: string) => {
+    buscaUsuario(cpf);
+
     try {
       const response = await fetch(
         `http://localhost:8080/contas/buscaPorCPF/${cpf}`
       );
       const dados = await response.json();
+
 
       let listaDeContas: TipoConta[] = [];
       let listaDeContasResponse: TipoContaResponse[] = [];
@@ -82,6 +91,17 @@ export default function BuscarConta() {
     }
   };
 
+  const buscaUsuario = async (cpf: string) => {
+    console.log(`http://localhost:8080/moradores/buscarPorCpf/${cpf}`);
+    const response = await fetch(
+      `http://localhost:8080/moradores/buscarPorCpf/${cpf}`
+    );
+
+    const dados = await response.json();
+    setMorador(dados);
+    console.log(dados);
+  };
+
   return (
     <main className="md:container mx-auto px-[5%] py-[3vh] text-xs sm:text-sm md:text-base h-[70vh] flex flex-col gap-[5vh]">
       <div className="text-start w-full mb-2">
@@ -99,7 +119,7 @@ export default function BuscarConta() {
           </h1>
           {listaDeContas.length > 0 && (
             <Link
-              href={`/cadastro/${cpf}`}
+              href={`/cadastro/${ morador.cpf }`}
               className="block rounded text-musgo text-center px-3 py-1 bg-slate-200 w-fit font-semibold"
             >
               Editar seus dados
@@ -131,50 +151,73 @@ export default function BuscarConta() {
       </div>
 
       {mostrarTabela ? (
-        <table className="table-auto border-x border-slate-400 bg-slate-200">
-          <thead>
-            <tr>
-              <th className="border border-slate-400 py-2">Data da conta</th>
-              <th className="border border-slate-400">Valor da Conta</th>
-              <th className="border border-slate-400">Consumo de Energia</th>
-              <th className="border border-slate-400">
-                <button>Editar</button>/<button>Excluir</button>
-              </th>
-            </tr>
-          </thead>
-          <tbody className="bg-white">
-            {listaDeContas.map((contaDeEnergia) => (
-              <tr key={contaDeEnergia.idContaDeEnergia}>
-                <td className="font-semibold text-center border">
-                  {contaDeEnergia.dataConta.dia}/{contaDeEnergia.dataConta.mes}/
-                  {contaDeEnergia.dataConta.ano}
-                </td>
-                <td className="font-semibold text-center border">
-                  R${contaDeEnergia.valorConta}
-                </td>
-                <td className="font-semibold text-center border">
-                  {contaDeEnergia.consumoKwh}KWh
-                </td>
-                <td className="font-semibold text-center border">
-                  <Link
-                    href={`/buscar-conta/${contaDeEnergia.idContaDeEnergia}`}
-                  >
-                    Editar
-                  </Link>{" "}
-                  |
-                  <button
-                    onClick={() =>
-                      handleDelete(contaDeEnergia.idContaDeEnergia)
-                    }
-                  >
-                    {" "}
-                    Excluir
-                  </button>
-                </td>
+        <div className="flex flex-col gap-3">
+          <table className="table-auto border-x border-slate-400 bg-slate-200">
+            <thead>
+              <tr>
+                <th className="border border-slate-400 py-2">Data da conta</th>
+                <th className="border border-slate-400">Valor da Conta</th>
+                <th className="border border-slate-400">Consumo de Energia</th>
+                <th className="border border-slate-400">
+                  <button>Editar</button>/<button>Excluir</button>
+                </th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="bg-white">
+              {listaDeContas.map((contaDeEnergia) => (
+                <tr key={contaDeEnergia.idContaDeEnergia}>
+                  <td className="font-semibold text-center border">
+                    {contaDeEnergia.dataConta.dia}/
+                    {contaDeEnergia.dataConta.mes}/
+                    {contaDeEnergia.dataConta.ano}
+                  </td>
+                  <td className="font-semibold text-center border">
+                    R${contaDeEnergia.valorConta}
+                  </td>
+                  <td className="font-semibold text-center border">
+                    {contaDeEnergia.consumoKwh}KWh
+                  </td>
+                  <td className="font-semibold text-center border">
+                    <Link
+                      href={`/buscar-conta/${contaDeEnergia.idContaDeEnergia}`}
+                    >
+                      Editar
+                    </Link>{" "}
+                    |
+                    <button
+                      onClick={() =>
+                        handleDelete(contaDeEnergia.idContaDeEnergia)
+                      }
+                    >
+                      {" "}
+                      Excluir
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+
+          <div className="w-full">
+            <h1 className="font-semibold mb-3">Meus dados</h1>
+            <ul>
+              <li>
+                <span className="font-semibold">Nome: </span>{" "}
+                {morador.nomeMorador}
+              </li>
+              <li>
+                <span className="font-semibold">CPF: </span> {morador.cpf}
+              </li>
+              <li>
+                <span className="font-semibold">Telefone: </span>{" "}
+                {morador.telefone}
+              </li>
+              <li>
+                <span className="font-semibold">Email: </span> {morador.email}
+              </li>
+            </ul>
+          </div>
+        </div>
       ) : (
         <div className="w-full text-center rounded bg-slate-200 py-2 px-4 text-slate-400">
           {mostrarMensagemErro ? (

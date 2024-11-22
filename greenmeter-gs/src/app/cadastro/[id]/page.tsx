@@ -11,8 +11,10 @@ export default function EditarUsuario() {
   const [mostrarMensagemErro, setMostrarMensagemErro] =
     useState<boolean>(false);
 
+  const [idMorador, setIdMorador] = useState<number>(0);
+
   const [morador, setMorador] = useState<TipoMorador>({
-    nome: "",
+    nomeMorador: "",
     cpf: "",
     email: "",
     telefone: "",
@@ -50,11 +52,12 @@ export default function EditarUsuario() {
     const fetchUsuario = async () => {
       try {
         const response = await fetch(
-          `http://localhost:8080/moradores/${params.id}`
+          `http://localhost:8080/moradores/buscarPorCpf/${params.id}`
         );
         const data = await response.json();
+        setIdMorador(data.idMorador);
         setMorador({
-          nome: data.nome || "",
+          nomeMorador: data.nomeMorador || "",
           cpf: data.cpf || "",
           email: data.email || "",
           telefone: data.telefone || "",
@@ -90,7 +93,7 @@ export default function EditarUsuario() {
       };
 
       try {
-        const response = await fetch(`http://localhost:8080/clientes/atualizarCliente/${params.id}`, {
+        const response = await fetch(`http://localhost:8080/moradores/${idMorador}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -145,9 +148,9 @@ export default function EditarUsuario() {
               type="text"
               id="nome"
               name="nome"
-              value={morador.nome}
+              value={morador.nomeMorador}
               onChange={(e) => {
-                setMorador({ ...morador, nome: e.target.value });
+                setMorador({ ...morador, nomeMorador: e.target.value });
               }}
               className="w-full p-1 px-2 rounded"
               placeholder="Insira seu nome"

@@ -1,5 +1,5 @@
 export type TipoMorador = {
-    nome: string;
+    nomeMorador: string;
     cpf: string;
     email: string;
     telefone: string;
@@ -39,4 +39,12 @@ export type DataConta = {
     dia: number;
     mes: number;
     ano: number;
+}
+
+export type TipoDesconto ={
+    idDesconto: number;
+    valorDesconto: number;
+    dataDesconto: Date;
+    descricaoDesconto: number;
+    idApartamento: number;
 }

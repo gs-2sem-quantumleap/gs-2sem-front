@@ -5,6 +5,7 @@ import { TipoConsumoMorador, TipoContaInput } from "@/types/types";
 
 export default function Home() {
   const [moradores, setMoradores] = useState<TipoConsumoMorador[]>([]);
+  
   const [conta, setConta] = useState<TipoContaInput>({
     valorConta: 0,
     dataConta: new Date(),
@@ -35,6 +36,9 @@ export default function Home() {
       console.error(error);
     }
   };
+
+
+
 
   useEffect(() => {
     chamadaApi();
