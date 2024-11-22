@@ -10,6 +10,9 @@ Conforme tratado no vídeo, o nosso site não tem criação de moradores no sist
 - Para criação de conta de energia, utilizar o **número do apartamento 106**
 - Para pesquisa detalhada de conta de energia, buscar pelo **CPF 678.901.234-55**
 
+## Link para o repositório do Github
+- https://github.com/gs-2sem-quantumleap/gs-2sem-front
+
 ## Link para a solução deployada no Vercel
 - https://greenmeter-gs.vercel.app/
 
