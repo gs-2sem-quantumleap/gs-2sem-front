@@ -5,7 +5,7 @@ import { TipoConsumoMorador, TipoContaInput } from "@/types/types";
 
 export default function Home() {
   const [moradores, setMoradores] = useState<TipoConsumoMorador[]>([]);
-  
+
   const [conta, setConta] = useState<TipoContaInput>({
     valorConta: 0,
     dataConta: new Date(),
@@ -36,9 +36,6 @@ export default function Home() {
       console.error(error);
     }
   };
-
-
-
 
   useEffect(() => {
     chamadaApi();
@@ -146,6 +143,8 @@ export default function Home() {
                     })
                   }
                   className="w-full p-1 rounded"
+                  required
+                  min={1}
                 />
               </div>
               <div className="flex flex-col justify-between">
@@ -161,6 +160,7 @@ export default function Home() {
                     setConta({ ...conta, dataConta: new Date(e.target.value) })
                   }
                   className="w-full p-1 rounded"
+                  required
                 />
               </div>
               <div className="flex flex-col justify-between">
@@ -179,6 +179,8 @@ export default function Home() {
                     })
                   }
                   className="w-full p-1 rounded"
+                  required
+                  min={1}
                 />
               </div>
               <div className="flex flex-col justify-between">
@@ -197,6 +199,8 @@ export default function Home() {
                     })
                   }
                   className="w-full p-1 rounded"
+                  required
+                  min={1}
                 />
               </div>
             </fieldset>

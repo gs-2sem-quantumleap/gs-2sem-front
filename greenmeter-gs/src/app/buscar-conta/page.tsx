@@ -92,14 +92,12 @@ export default function BuscarConta() {
   };
 
   const buscaUsuario = async (cpf: string) => {
-    console.log(`http://localhost:8080/moradores/buscarPorCpf/${cpf}`);
     const response = await fetch(
       `http://localhost:8080/moradores/buscarPorCpf/${cpf}`
     );
 
     const dados = await response.json();
     setMorador(dados);
-    console.log(dados);
   };
 
   return (
@@ -142,6 +140,9 @@ export default function BuscarConta() {
               value={cpf}
               name="cpf"
               onChange={handleChange}
+              maxLength={14}
+              minLength={14}
+              required
             />
           </div>
           <button className="px-3 py-1 bg-musgo text-limao w-fit rounded">

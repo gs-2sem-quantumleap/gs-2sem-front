@@ -112,7 +112,6 @@ export default function EditarUsuario() {
         console.error("Erro ao atualizar o cliente.", error);
       }
 
-      console.log(moradorSemMascara);
     }
   };
 

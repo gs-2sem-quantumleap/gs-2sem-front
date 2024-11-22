@@ -12,26 +12,54 @@ export default function EditarConta() {
     idApartamento: 0,
   });
 
-
-
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    const dataConta = new Date(conta.dataConta);
+    const dadosEnvio: TipoContaInput = {
+        ...conta,
+        dataConta: dataConta,
+    }
 
+    console.log(dadosEnvio);
+    try {
+      const response = await fetch(`http://localhost:8080/contas/${params.id}`, {
+        method: "PUT",
+        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...conta,
+          dataConta: dataConta.toISOString(),
+        }),
+      });
+
+      if (response.ok) {
+        alert("Conta atualizada com sucesso!");
+        
+
+        setConta({
+          valorConta: 0,
+          dataConta: new Date(),
+          consumoKwh: 0,
+          idApartamento: 0,
+        });
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar conta:", error);
+    }
   };
 
   const params = useParams<{ id: string }>();
 
   useEffect(() => {
-    console.log(params);
     const fetchConta = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/moradores/buscarPorCpf/${params.id}`);
+        const response = await fetch(`http://localhost:8080/contas/${params.id}`);
         const data = await response.json();
-        // setConta(data);
-        // console.log(conta);
-        console.log(data);
+        setConta(data);
+
       } catch (error) {
         console.error("Erro ao buscar conta:", error);
       }
