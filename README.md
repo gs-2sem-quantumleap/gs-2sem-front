@@ -12,7 +12,6 @@ Conforme tratado no vídeo, o nosso site não tem criação de moradores no sist
 
 ## Observações
 - Para rodar o back-end, por favor rodar a classe main do projeto JAVA.
-- Após diversas tentativas, não conseguimos integrar a matéria de Artificial Intelligence & Chatbot ao front-end e pedimos desculpas por isso. Entretanto, optamos por entregar assim pois este não estava listado como requisito no PDF de entrega.
 
 ## Link para o repositório do Github
 - https://github.com/gs-2sem-quantumleap/gs-2sem-front
